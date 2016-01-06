@@ -12,12 +12,12 @@ app.on('window-all-closed', function() {
 });
 
 app.on('ready', function() {
-    mainWindow = new BrowserWindow({width: 1600, height: 900});
+    mainWindow = new BrowserWindow({width: 1600, height: 900, icon: "logo.png", fullscreen: true});
     // so __dirname is just known to be a glabal constant? Nice going
     // js
     mainWindow.loadURL('file://' + __dirname + '/index.html');
     mainWindow.webContents.openDevTools();
-
+    mainWindow.setMenu(null);
     mainWindow.on('closed', function() {
 	// somehow you're deleting something without executing
 	// code. Nice going js
