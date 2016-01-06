@@ -12,7 +12,9 @@ app.on('window-all-closed', function() {
 });
 
 app.on('ready', function() {
-    mainWindow = new BrowserWindow({width: 1600, height: 900, icon: "logo.png"});
+    mainWindow = new BrowserWindow({width: 1600,
+				    height: 900,
+				    icon: "logo.png"});
     // so __dirname is just known to be a glabal constant? Nice going
     // js
     mainWindow.loadURL('file://' + __dirname + '/index.html');
