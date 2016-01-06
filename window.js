@@ -1,10 +1,14 @@
 'use strict';
 
+// Imports
 const fs = require('fs');
+const remote = require('electron').remote
 
-var startingFile = "file:///C:/Users/adam/Pictures/Walls/Wallpapers/Akame_ga_kill/05bd40ff23e384abdf20135b7133a8cb.png"
-var activeFiles = []
+// Global variables
+var startingFile = "file:///C:/Users/adam/Pictures/Walls/Wallpapers/Akame_ga_kill/05bd40ff23e384abdf20135b7133a8cb.png";
+var activeFiles = [];
 var currentIndex = 0;
+var mainWindow = null;
 
 ////////////////////////////////////////
 // Filename utilities
@@ -57,17 +61,24 @@ function toggleHelp() {
     }
 }
 
+function toggleFullscreen() {
+    mainWindow.setFullScreen(!mainWindow.isFullScreen());
+}
+
 function keyHandler(event) {
     console.log(event.keyCode);
 
     // Keycodes:
     // 112: F1
     if (event.keyCode == 112) {
-	toggleHelp()
+	toggleHelp();
     }
 
     // 122: F11
     // 70:  F
+    if (event.keyCode == 70 || event.keyCode == 122) {
+	toggleFullscreen();
+    }
 
     // 39: Right
     if (event.keyCode == 39) {
@@ -81,6 +92,7 @@ function keyHandler(event) {
 
 function main() {
     console.log("Running Main");
+    mainWindow = remote.getCurrentWindow()
     loadImage(startingFile);
     activateDir(dirname(startingFile));
     // This may be janky. Requires full url and all that jazz
