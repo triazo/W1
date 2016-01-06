@@ -11,15 +11,8 @@ app.on('window-all-closed', function() {
     app.quit();
 });
 
-function keyHandler(event) {
-    // Copied from stackOverflow, WHAT DOES THIS LINE DO???
-    event = event || window.event;
-
-    console.log(event.keyCode);
-}
-
 app.on('ready', function() {
-    mainWindow = new BrowserWindow({width: 800, height: 600});
+    mainWindow = new BrowserWindow({width: 1600, height: 900});
     // so __dirname is just known to be a glabal constant? Nice going
     // js
     mainWindow.loadURL('file://' + __dirname + '/index.html');
