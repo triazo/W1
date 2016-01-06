@@ -10,6 +10,8 @@ function toggleHelp() {
     }
 }
 
+function loadImage(path) {
+
 function keyHandler(event) {
     console.log(event.keyCode);
 
