@@ -15,10 +15,15 @@ var mainWindow = null;
 ////////////////////////////////////////
 // Filename utilities
 function dirname(url) {
-    // The 10 here will vary depending on platform :/
+    // The 7 here will vary depending on platform :/
     url = url.substring(7);
     return url.substring(0, url.lastIndexOf('/'));
 }
+
+function basename(url) {
+    return url.substring(url.lastIndexOf('/')+1);
+}
+
 
 function activateDir(directory) {
     activeFiles = []
@@ -41,6 +46,21 @@ function loadImage(path) {
 // JS WHY IS THIS NECESSARY
 function mod(n, m) {
     return ((n % m) + m) % m;
+}
+
+function deleteImage() {
+    // Should probably cache this but oh well
+    var f = activeFiles[currentIndex].replace(/\\/g,'/')
+    console.log(f)
+    console.log(dirname(activeFiles[currentIndex]).substring(1))
+    if (!fs.existsSync(dirname(activeFiles[currentIndex]).substring(1) + '/bad')) {
+	fs.mkdirSync(dirname(activeFiles[currentIndex]).substring(1) + '/bad');
+    }
+    fs.renameSync(f.substring(8), dirname(f).substring(1) + '/bad/' + basename(f))
+
+    // Reload the page
+    activateDir(dirname(f))
+    loadImage(activeFiles[mod(currentIndex, activeFiles.length)+1])
 }
 
 function nextImage() {
@@ -89,6 +109,11 @@ function keyHandler(event) {
     // 37: Left
     if (event.keyCode == 37) {
 	previousImage();
+    }
+
+    // 46: Delete
+    if (event.keyCode == 46) {
+	deleteImage();
     }
 }
 
