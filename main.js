@@ -18,7 +18,6 @@ app.on('ready', function() {
     // so __dirname is just known to be a glabal constant? Nice going
     // js
     mainWindow.loadURL('file://' + __dirname + '/index.html');
-    mainWindow.webContents.openDevTools();
     mainWindow.myargs = process.argv
     mainWindow.setMenu(null);
     mainWindow.on('closed', function() {
