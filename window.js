@@ -2,7 +2,9 @@
 
 // Imports
 const fs = require('fs');
-const remote = require('electron').remote
+const remote = require('electron').remote;
+const process = require('process');
+
 
 // Global variables
 var startingFile = "file:///C:/Users/adam/Pictures/Walls/Wallpapers/Akame_ga_kill/05bd40ff23e384abdf20135b7133a8cb.png";
@@ -93,6 +95,10 @@ function keyHandler(event) {
 function main() {
     console.log("Running Main");
     mainWindow = remote.getCurrentWindow()
+    console.log(mainWindow.myargs)
+    if (mainWindow.myargs[1].match(/\.(jpg|jpeg|png|gif|webm)$/)) {
+	startingFile = "file:///" + mainWindow.myargs[1].replace(/\\/g, '/')
+    }
     loadImage(startingFile);
     activateDir(dirname(startingFile));
     // This may be janky. Requires full url and all that jazz

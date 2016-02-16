@@ -19,6 +19,7 @@ app.on('ready', function() {
     // js
     mainWindow.loadURL('file://' + __dirname + '/index.html');
     mainWindow.webContents.openDevTools();
+    mainWindow.myargs = process.argv
     mainWindow.setMenu(null);
     mainWindow.on('closed', function() {
 	// somehow you're deleting something without executing
